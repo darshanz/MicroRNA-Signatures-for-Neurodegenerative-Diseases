@@ -22,9 +22,10 @@ associated with various neurodegenerative diseases using publicly available
 
 
  ### Dataset
-    The dataset used in this study is sourced from the Gene Expression Omnibus (GEO) download [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584).
 
-    The dataset contains 1601 samples for various neurodegenerative diseases as shown in the table below (01B_Data_Exploration.ipynb):
+The dataset used in this study is sourced from the Gene Expression Omnibus (GEO) download [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584).
+
+The dataset contains 1601 samples for various neurodegenerative diseases as shown in the table below (01B_Data_Exploration.ipynb):
 
 
 | Disease Case | Sample Size |
