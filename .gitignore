@@ -1,0 +1,10 @@
+**/logs
+**/output
+*.tmp
+.DS_Store
+**/__pycache__/
+*.log
+.env
+.vscode/
+.idea/
+**/.ipynb_checkpoints/
