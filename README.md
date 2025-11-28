@@ -47,5 +47,19 @@ Preprocessing
 ### File information:
 
  Repository consists of following notebooks:
- 1. 01A_Understanding_Raw_Data.ipynb : Understanding raw data
- 2. 01B_Data_Exploration.ipynb : series matrix data exploration
+ 1. **01A_Understanding_Raw_Data.ipynb** : Understanding raw data
+ 2. **01B_Data_Exploration.ipynb** : series matrix data exploration
+ 3. **02A_BorutaFeatureRanking.ipynb**: feature filtering using`BorutaPy`
+ 4. **02B_FeatureRanking.ipynb**: 
+
+
+
+### Install Requirements
+
+Requirements for this project are available in `requirements.txt`
+
+
+ ## References
+ [1] Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
+
+ [2] Kursa M., Rudnicki W., "Feature Selection with the Boruta Package" Journal of Statistical Software, Vol. 36, Issue 11, Sep 2010
