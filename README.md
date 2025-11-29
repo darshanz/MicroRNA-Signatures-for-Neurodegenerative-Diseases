@@ -4,20 +4,21 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
  
-This is an unofficial implementation of the study by Li et al. (2022) 
-titled "[Identifying Key MicroRNA Signatures for Neurodegenerative Diseases 
-With Machine Learning
- Methods](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2022.880997/full)" 
- published in *Frontiers in Genetics*.
  
- Disclaimer: This implementation is not affiliated with or endorsed by the original authors 
- and was implemented purely for study and educational purposes.
-
- ---
-
 This repository contains code and analysis for identifying microRNA signatures 
 associated with various neurodegenerative diseases using publicly available
  gene expression datasets. 
+
+ 
+
+#### Acknowledgements
+
+Most of the experiments in this repository are based on the methods described in the following research paper. While these experiments may not completely follow the original methodology, we gratefully acknowledge the detailed and reproducible description provided in their work:
+
+> Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
+ 
+  
+
 
 
 
