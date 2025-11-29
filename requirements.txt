@@ -1,7 +1,9 @@
 Boruta==0.4.3
+imbalanced_learn==0.14.0
+imblearn==0.0
 matplotlib==3.7.2
+matplotlib_venn==1.1.2
 mrmr_selection==0.2.8
-myworkspaceutils==0.1.0
 numpy==1.24.3
 pandas==2.3.3
 scikit_learn==1.7.2

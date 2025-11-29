@@ -39,21 +39,17 @@ Each files contains:
 2. Upon visual inspection it appeared that the text files have similar format with tab separated values. 
 3. The dataframes in each file was found to contain same shape (3200, 16) and identical column names: `['Cell', 'Block', 'Column', 'Row', 'G_Name', 'G_ID', '635nm', ' nm', '635nm.1', ' nm.1', 'Flag_635', 'Flag_ ', 'Flag_635.1', 'Flag_ .1', 'Flag_635.2', 'Flag_ .2']`
 4.  Confirmed all quality flags were "OK" (no filtering needed)
+5. we removed the features whose identifiers contained commas because these rows represented ambiguous probe-to-miRNA mappings (one row referring to multiple MIMAT IDs). Those ambiguous features cannot be reliably attributed to a single biological entity.
 5. Matrix Construction
-- Combined all 1,601 samples into unified expression matrix
-- **Rows**: 2,613 unique miRNAs
-- **Columns**: 1,601 samples with informative IDs (e.g., "GSM3404971_MCI_0021")
+- Combined all 1601 samples into unified expression matrix
+- **Rows**: 2547 unique miRNAs
+- **Columns**: 1601 samples with informative IDs (e.g., "GSM3404971_MCI_0021")
 - **Values**: miRNA expression levels from 635nm channel
 
-## Final Output
+##### Final Output
  
-Expression Matrix Shape: (2613, 1601)
-- miRNAs: 2,613 features
-- Samples: 1,601 observations
+Expression Matrix Shape: (2547, 1601)
+- miRNAs: 2547 features
+- Samples: 1601 observations
 - Missing Values: 0 (complete data)
- 
-We created a expression matrix with 2,613 mRNAs . The paper [1] mentioned. ` "a total of 2547 miRNAs were identified in the expression profiles"` This difference could be due to different filtering. However, our goal here was to understand the raw data folder.  We deal with the preprocessed matrix following the paper [1] to continue the study.
-
-
-# Data_exploration.ipynb
 
