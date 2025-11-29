@@ -1,4 +1,4 @@
-# mRNA Signatures for Neurodegenerative Diseases
+# MicroRNA Signatures for Neurodegenerative Diseases
 
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
@@ -15,7 +15,7 @@ With Machine Learning
 
  ---
 
-This repository contains code and analysis for identifying mRNA signatures 
+This repository contains code and analysis for identifying microRNA signatures 
 associated with various neurodegenerative diseases using publicly available
  gene expression datasets. 
 
