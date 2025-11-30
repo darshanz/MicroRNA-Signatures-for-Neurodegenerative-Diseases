@@ -9,22 +9,12 @@ This repository contains code and analysis for identifying microRNA signatures
 associated with various neurodegenerative diseases using publicly available
  gene expression datasets. 
 
- 
-
-#### Acknowledgements
-
-Most of the experiments in this repository are based on the methods described in the following research paper. While these experiments may not completely follow the original methodology, we gratefully acknowledge the detailed and reproducible description provided in their work:
-
-> Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
- 
+*Note: This is an independent reimplementation of the methods described in the referenced paper, created for educational purposes. All original research credit belongs to  Li et al. [1]*
   
-
-
-
 
  ### Dataset
 
-The dataset used in this study is sourced from the Gene Expression Omnibus (GEO) download [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584).
+The dataset used in this study is sourced from the Gene Expression Omnibus (GEO) download [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584). (GEO accession number: GSE120584)
 
 The dataset contains 1601 samples for various neurodegenerative diseases as shown in the table below (01B_Data_Exploration.ipynb):
 
@@ -144,10 +134,19 @@ Feature importance ranking of the miRNA features selected using mRMR and MCFS me
 Requirements for this project are available in `requirements.txt`
 
 
+
+#### Acknowledgements
+
+Most of the experiments in this repository are based on the methods described in the following research paper. While these experiments may not completely follow the original methodology, we gratefully acknowledge the detailed and reproducible description provided in their work:
+
+> Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
+ 
+
+
  ## References
  [1] Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
 
- [2] Kursa M., Rudnicki W., "Feature Selection with the Boruta Package" Journal of Statistical Software, Vol. 36, Issue 11, Sep 2010
+ [2] Kursa M., Rudnicki W., "Feature Selection with the Boruta Package" Journal of Statistical Software, Vol. 36, Issue 11, Sep 2010[GEO Accession viewer](h[404 Error - NCBI](https://www.ncbi.nlm.nih.gov/home/tutorials/acc.cgi?acc=GSE120584))/))?acc=GSE120584)))/)))h.gov/geo/query/acc.cgi?acc=GSE120584))[404 Error - NCBI](https://www.ncbi.nlm.nih.gov/home/tutorials/))
 
  [3] [Risk prediction models for dementia constructed by supervised principal component analysis using miRNA expression data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584)
 
