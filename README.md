@@ -148,3 +148,7 @@ Requirements for this project are available in `requirements.txt`
  [1] Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
 
  [2] Kursa M., Rudnicki W., "Feature Selection with the Boruta Package" Journal of Statistical Software, Vol. 36, Issue 11, Sep 2010
+
+ [3] [Risk prediction models for dementia constructed by supervised principal component analysis using miRNA expression data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584)
+
+ [4] [A Guide to NCBI: Gene Expression](https://www.ncbi.nlm.nih.gov/home/tutorials/)
