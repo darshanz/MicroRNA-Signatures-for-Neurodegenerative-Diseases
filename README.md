@@ -2,8 +2,6 @@
 
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
- 
  
 This repository contains code and analysis for identifying microRNA signatures 
 associated with various neurodegenerative diseases using publicly available
