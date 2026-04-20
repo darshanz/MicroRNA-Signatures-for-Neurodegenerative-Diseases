@@ -65,7 +65,12 @@ When comparing mRMR vs MCFS, there was not much agreement betwee two methods as 
 
 After feature ranking was analyed, we conducted Incremental Feature Selection (IFS). We used RandomForest and Decision Trees (Although, the paper[1] used PART from Weka, we tried to use closest interpretable model available in SKLearn Package) as our classifiers and identicied the best set of features based on MCC as evaluation metric.
 
- ![alt text](images/incremental_ftr_selection_mcc_mRMR.png)
+##### Incremental Feature Selection using Random Forest
+
+![alt text](images/incremental_ftr_selection_mcc_mRMR.png)
+
+##### Incremental Feature Selection using Decision Tree
+
 ![alt text](images/incremental_ftr_selection_mcc_MFCC.png)
 
 **TABLE**  Classification Performance of Random Forest and Decision Tree Models with mRMR and MCFS Feature Selection Methods
@@ -102,7 +107,7 @@ From classification results, we can see that:
 ##### Overlap in features selected by mRMR method and MCFS methods
 
 Venn diagram to show overlap between the top miRNA features selected by mRMR method and MCFS method
-- 25 miRNA features are commonly identiﬁed.
+- 29 miRNA features are commonly identiﬁed.
 
 
 ![alt text](images/ven_diagram_ftr_overlap.png)
