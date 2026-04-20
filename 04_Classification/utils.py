@@ -1,4 +1,8 @@
 from pathlib import Path
+import os
+
+os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
+
 import matplotlib_venn as venn
 from matplotlib import pyplot as plt
 import seaborn as sns
@@ -11,11 +15,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier, export_text
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.metrics import classification_report, confusion_matrix, matthews_corrcoef
+from sklearn.metrics import precision_score, recall_score
 from imblearn.over_sampling import SMOTE
 
 class OptimalFeatures:
     def __init__(self):
-        self.data_dir = f"{Path.cwd().parent.parent}/data"
+        self.data_dir = Path(__file__).resolve().parents[2] / "data"
         self.optimal_ftrs_df = pd.read_csv(f'{self.data_dir}/optimal_feature_subsets_ifs.csv')
 
     def get_optimal_counts(self, method_name, model_type):
@@ -35,12 +40,6 @@ class OptimalFeatures:
 
 def build_classifier(X, y, feature_subset, label_encoder, classifier_type='RF', use_smote=True):
     X_optimal = X[feature_subset]
-
-    if use_smote:
-        smote = SMOTE(sampling_strategy='auto', random_state=42)   
-        X_resampled, y_resampled = smote.fit_resample(X_optimal, y)
-    else:
-        X_resampled, y_resampled = X_optimal, y
 
     if classifier_type == 'RF':
         classifier = RandomForestClassifier(n_estimators=100, random_state=42)
@@ -62,24 +61,22 @@ def build_classifier(X, y, feature_subset, label_encoder, classifier_type='RF', 
 
 
     cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
-    cv_results = cross_validate(
-        classifier, X_resampled, y_resampled, 
-        cv=cv, scoring=scoring, return_train_score=False
-    )
-    classifier.fit(X_resampled, y_resampled)
-
     y_true_all = []
     y_pred_all = []
+    fold_scores = {metric_name: [] for metric_name in scoring.keys()}
 
-    for train_idx, test_idx in cv.split(X_resampled, y_resampled):
-        X_train, X_test = X_resampled.iloc[train_idx], X_resampled.iloc[test_idx]
-        y_train, y_test = y_resampled[train_idx], y_resampled[test_idx]
-
+    for train_idx, test_idx in cv.split(X_optimal, y):
+        X_train, X_test = X_optimal.iloc[train_idx], X_optimal.iloc[test_idx]
+        y_train, y_test = y[train_idx], y[test_idx]
+    
+        if use_smote:
+            smote = SMOTE(sampling_strategy='auto', random_state=42)
+            X_train, y_train = smote.fit_resample(X_train, y_train)
     
         if classifier_type == 'RF':
             clf = RandomForestClassifier(n_estimators=100, random_state=42) 
         elif classifier_type == 'DT':
-            clf = DecisionTreeClassifier(max_depth=5, random_state=42)
+            clf = DecisionTreeClassifier(max_depth=5, min_samples_split=10, random_state=42)
         else:
             raise ValueError("Only 'RF' or 'DT' supported")
         
@@ -88,6 +85,22 @@ def build_classifier(X, y, feature_subset, label_encoder, classifier_type='RF', 
         
         y_true_all.extend(y_test)
         y_pred_all.extend(y_pred)
+        fold_scores['accuracy'].append(accuracy_score(y_test, y_pred))
+        fold_scores['mcc'].append(matthews_corrcoef(y_test, y_pred))
+        fold_scores['f1_macro'].append(f1_score(y_test, y_pred, average='macro', zero_division=0))
+        fold_scores['f1_weighted'].append(f1_score(y_test, y_pred, average='weighted', zero_division=0))
+        fold_scores['precision_macro'].append(
+            precision_score(y_test, y_pred, average='macro', zero_division=0)
+        )
+        fold_scores['recall_macro'].append(
+            recall_score(y_test, y_pred, average='macro', zero_division=0)
+        )
+
+    X_train_full, y_train_full = X_optimal, y
+    if use_smote:
+        smote = SMOTE(sampling_strategy='auto', random_state=42)
+        X_train_full, y_train_full = smote.fit_resample(X_train_full, y_train_full)
+    classifier.fit(X_train_full, y_train_full)
 
     class_report = classification_report(
         y_true_all, y_pred_all, 
@@ -105,22 +118,24 @@ def build_classifier(X, y, feature_subset, label_encoder, classifier_type='RF', 
     results = {
         'classifier': classifier,
         'features': feature_subset,
-        'cv_accuracy': round(np.mean(cv_results['test_accuracy']), 4),
-        'cv_accuracy_std': round(np.std(cv_results['test_accuracy']), 4),
-        'cv_mcc': round(np.mean(cv_results['test_mcc']), 4),
-        'cv_mcc_std': round(np.std(cv_results['test_mcc']), 4),
-        'cv_f1_macro': round(np.mean(cv_results['test_f1_macro']), 4),
-        'cv_f1_macro_std': round(np.std(cv_results['test_f1_macro']), 4),
-        'cv_f1_weighted': round(np.mean(cv_results['test_f1_weighted']), 4),
-        'cv_f1_weighted_std': round(np.std(cv_results['test_f1_weighted']), 4),
-        'cv_precision_macro': round(np.mean(cv_results['test_precision_macro']), 4),
-        'cv_recall_macro': round(np.mean(cv_results['test_recall_macro']), 4),
+        'y_true': y_true_all,
+        'y_pred': y_pred_all,
+        'cv_accuracy': round(np.mean(fold_scores['accuracy']), 4),
+        'cv_accuracy_std': round(np.std(fold_scores['accuracy']), 4),
+        'cv_mcc': round(np.mean(fold_scores['mcc']), 4),
+        'cv_mcc_std': round(np.std(fold_scores['mcc']), 4),
+        'cv_f1_macro': round(np.mean(fold_scores['f1_macro']), 4),
+        'cv_f1_macro_std': round(np.std(fold_scores['f1_macro']), 4),
+        'cv_f1_weighted': round(np.mean(fold_scores['f1_weighted']), 4),
+        'cv_f1_weighted_std': round(np.std(fold_scores['f1_weighted']), 4),
+        'cv_precision_macro': round(np.mean(fold_scores['precision_macro']), 4),
+        'cv_recall_macro': round(np.mean(fold_scores['recall_macro']), 4),
         'feature_importances': {feature: round(imp, 4) for feature, imp in zip(feature_subset, importances)},
         'classification_report': class_report
     }
     
     print(f"{classifier_type}:")
-    print(f"Accuracy: {np.mean(cv_results['test_accuracy']):.4f} (+/- {np.std(cv_results['test_accuracy']) * 2:.4f})")
+    print(f"Accuracy: {np.mean(fold_scores['accuracy']):.4f} (+/- {np.std(fold_scores['accuracy']) * 2:.4f})")
     print(f"Ftrs: {len(feature_subset)}")
     
     return results
@@ -170,6 +185,58 @@ def plot_classwise_performance_bar(report_dict, model_name):
     ax.set_xticklabels(classes)
     ax.legend(loc='upper left', ncols=3)
     ax.set_ylim(0, 1.1) 
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_confusion_matrices(final_classifiers, label_encoder, model_keys=None, normalize=None):
+    model_name_labels = {
+        'mrmr_rf_smote': 'mRMR + RF + SMOTE',
+        'mrmr_dt_smote': 'mRMR + DT + SMOTE',
+        'mcfs_rf_smote': 'MCFS + RF + SMOTE',
+        'mcfs_dt_smote': 'MCFS + DT + SMOTE',
+        'mrmr_rf_no_smote': 'mRMR + RF + (NO SMOTE)',
+        'mrmr_dt_no_smote': 'mRMR + DT + (NO SMOTE)',
+        'mcfs_rf_no_smote': 'MCFS + RF + (NO SMOTE)',
+        'mcfs_dt_no_smote': 'MCFS + DT + (NO SMOTE)'
+    }
+
+    if model_keys is None:
+        model_keys = list(final_classifiers.keys())
+
+    n_models = len(model_keys)
+    n_cols = 2
+    n_rows = int(np.ceil(n_models / n_cols))
+
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(12, 5 * n_rows))
+    axes = np.array(axes).reshape(-1)
+
+    for ax, model_key in zip(axes, model_keys):
+        results = final_classifiers[model_key]
+        cm = confusion_matrix(
+            results['y_true'],
+            results['y_pred'],
+            labels=np.arange(len(label_encoder.classes_)),
+            normalize=normalize
+        )
+
+        fmt = '.2f' if normalize else 'd'
+        sns.heatmap(
+            cm,
+            annot=True,
+            fmt=fmt,
+            cmap='Blues',
+            xticklabels=label_encoder.classes_,
+            yticklabels=label_encoder.classes_,
+            ax=ax
+        )
+        ax.set_title(model_name_labels.get(model_key, model_key), fontsize=12, fontweight='bold')
+        ax.set_xlabel('Predicted label')
+        ax.set_ylabel('True label')
+
+    for ax in axes[n_models:]:
+        ax.axis('off')
+
     plt.tight_layout()
     plt.show()
 

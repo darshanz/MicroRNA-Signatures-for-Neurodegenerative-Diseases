@@ -71,20 +71,20 @@ After feature ranking was analyed, we conducted Incremental Feature Selection (I
 **TABLE**  Classification Performance of Random Forest and Decision Tree Models with mRMR and MCFS Feature Selection Methods
 | Model | Accuracy | F1-score (weighted) | MCC |
 |:------|---------:|-------------------:|----:|
-| mRMR + RF + SMOTE | 0.9328 | 0.9311 | 0.9169 |
-| mRMR + DT + SMOTE | 0.5350 | 0.5172 | 0.4289 |
-| MCFS + RF + SMOTE | 0.9369 | 0.9356 | 0.9218 |
-| MCFS + DT + SMOTE | 0.5120 | 0.4954 | 0.3995 |
-| mRMR + RF + (NO SMOTE) | 0.6933 | 0.6098 | 0.3222 |
-| mRMR + DT + (NO SMOTE) | 0.6415 | 0.5647 | 0.1850 |
-| MCFS + RF + (NO SMOTE) | 0.6896 | 0.6032 | 0.3113 |
-| MCFS + DT + (NO SMOTE) | 0.6421 | 0.5670 | 0.1945 |
+| mRMR + RF + SMOTE | 0.6377 | 0.6122 | 0.2813 |
+| mRMR + DT + SMOTE | 0.3092 | 0.3691 | 0.1325 |
+| MCFS + RF + SMOTE | 0.6446 | 0.6220 | 0.2989 |
+| MCFS + DT + SMOTE | 0.2798 | 0.3289 | 0.1266 |
+| mRMR + RF + (NO SMOTE) | 0.6952 | 0.6121 | 0.3294 |
+| mRMR + DT + (NO SMOTE) | 0.6421 | 0.5666 | 0.1891 |
+| MCFS + RF + (NO SMOTE) | 0.6908 | 0.6042 | 0.3170 |
+| MCFS + DT + (NO SMOTE) | 0.6452 | 0.5735 | 0.2006 |
 
 
 From classification results, we can see that:
-- Models with SMOTE consistently perform better than those without SMOTE
 - Random Forest models performed better than Decision Tree models
-- MCFS + RF + SMOTE achieves the highest performance across all metrics
+- mRMR + RF without SMOTE achieves the highest MCC in this set of experiments
+- MCFS + RF + SMOTE achieves the highest weighted F1-score among the SMOTE models
 
 ##### Classwise Performance for mRMR features using RandomForest
 
@@ -143,9 +143,9 @@ Most of the experiments in this repository are based on the methods described in
 
  ## References
  [1] Li, Z., Guo, W., Ding, S., Chen, L., Feng, K., Huang, T. and Cai, Y.D., 2022. Identifying key MicroRNA signatures for neurodegenerative diseases with machine learning methods. Frontiers in Genetics, 13, p.880997.
-[GEO Accession viewer](h[404 Error - NCBI](https://www.ncbi.nlm.nih.gov/home/tutorials/acc.cgi?acc=GSE120584))/))?acc=GSE120584)))/)))h.gov/geo/query/acc.cgi?acc=GSE120584))[404 Error - NCBI](https://www.ncbi.nlm.nih.gov/home/tutorials/))
- [2] Kursa M., Rudnicki W., "Feature Selection with the Boruta Package" Journal of Statistical Software, Vol. 36, Issue 11, Sep 2010 
+ [2] [GEO Accession viewer](https://www.ncbi.nlm.nih.gov/home/tutorials/acc.cgi?acc=GSE120584)
+ [3] Kursa M., Rudnicki W., "Feature Selection with the Boruta Package" Journal of Statistical Software, Vol. 36, Issue 11, Sep 2010 
 
- [3] [Risk prediction models for dementia constructed by supervised principal component analysis using miRNA expression data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584)
+ [4] [Risk prediction models for dementia constructed by supervised principal component analysis using miRNA expression data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE120584)
 
  [5] [A Guide to NCBI: Gene Expression](https://www.ncbi.nlm.nih.gov/home/tutorials/)
